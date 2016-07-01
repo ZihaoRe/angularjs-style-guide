@@ -1,48 +1,6 @@
-# 简介
-
-本风格指南的目的是展示AngularJS应用的最佳实践和风格指南。
-这些最佳实践来自于：
-
-0. AngularJS项目源码
-0. 本人阅读过的源码和文章
-0. 本人的实践经历
-
-**说明1**: 这只是风格指南的草案，主要目的是通过交流以消除分歧，进而被社区广泛采纳。  
-**说明2**: 本版本是翻译自英文原版，在遵循下面的指南之前请确认你看到的是比较新的版本。
-
-在本指南中不会包含基本的JavaScript开发指南。这些基本的指南可以在下面的列表中找到：
-
-0. [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml)
-0. [Mozilla's JavaScript style guide](https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style)
-0. [GitHub's JavaScript style guide](https://github.com/styleguide/javascript)
-0. [Douglas Crockford's JavaScript style guide](http://javascript.crockford.com/code.html)
-0. [Airbnb JavaScript style guide](https://github.com/airbnb/javascript)
-
-对于AngularJS开发，推荐 [Google's JavaScript style guide](https://google.github.io/styleguide/javascriptguide.xml).
-
-在AngularJS的Github wiki中有一个相似的章节 [ProLoser](https://github.com/ProLoser), 你可以点击[这里](https://github.com/angular/angular.js/wiki)查看。
-
-# 其它翻译版本
-
-- [英语](https://github.com/mgechev/angularjs-style-guide/blob/master/README.md)
-- [德语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-de-de.md)
-- [西班牙语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-es-es.md)
-- [法语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-fr-fr.md)
-- [印度尼西亚语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-id-id.md)
-- [意大利语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-it-it.md)
-- [日语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ja-jp.md)
-- [韩语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ko-kr.md)
-- [波兰语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-pl-pl.md)
-- [葡萄牙语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-pt-br.md)
-- [俄语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-ru-ru.md)
-- [塞尔维亚语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr.md)
-- [塞尔维亚拉丁语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-sr-lat.md)
-- [土耳其语](https://github.com/mgechev/angularjs-style-guide/blob/master/README-tr-tr.md)
-
 # 内容目录
 * [概览](#概览)
     * [目录结构](#目录结构)
-    * [标记](#标记)
     * [命名约定](#命名约定)
     * [其他](#其他)
 * [模块](#模块)
@@ -65,111 +23,43 @@
 有两个主流的组织方式：
 
 * 按照类型优先，业务功能其次的组织方式
-
-这种方式的目录结构看起来如下：
-
-```
-.
-├── app
-│   ├── app.js
-│   ├── controllers
-│   │   ├── home
-│   │   │   ├── FirstCtrl.js
-│   │   │   └── SecondCtrl.js
-│   │   └── about
-│   │       └── ThirdCtrl.js
-│   ├── directives
-│   │   ├── home
-│   │   │   └── directive1.js
-│   │   └── about
-│   │       ├── directive2.js
-│   │       └── directive3.js
-│   ├── filters
-│   │   ├── home
-│   │   └── about
-│   └── services
-│       ├── CommonService.js
-│       ├── cache
-│       │   ├── Cache1.js
-│       │   └── Cache2.js
-│       └── models
-│           ├── Model1.js
-│           └── Model2.js
-├── partials
-├── lib
-└── test
-```
-
 * 按照业务功能优先，类型其次的组织方式
-
-如下：
-
+我们采用按照业务功能优先的方式，目录结构如下所示：
 ```
 .
-├── app
-│   ├── app.js
+├── src
+│   ├── apps 
+|   │   └── documentList
+|   │       ├── controllers
+|   │       ├── views
+|   │       ├── services
+|   │       ├── filters
+|   │       └── directives
+|   │           └── directiveA
+|   │               ├── directiveA.html
+|   │               ├── directiveA.less
+|   │               └── directiveA.html
 │   ├── common
-│   │   ├── controllers
 │   │   ├── directives
 │   │   ├── filters
+│   │   ├── modules
+│   │   ├── api
+│   │   ├── ui
 │   │   └── services
-│   ├── home
-│   │   ├── controllers
-│   │   │   ├── FirstCtrl.js
-│   │   │   └── SecondCtrl.js
-│   │   ├── directives
-│   │   │   └── directive1.js
-│   │   ├── filters
-│   │   │   ├── filter1.js
-│   │   │   └── filter2.js
-│   │   └── services
-│   │       ├── service1.js
-│   │       └── service2.js
-│   └── about
-│       ├── controllers
-│       │   └── ThirdCtrl.js
-│       ├── directives
-│       │   ├── directive2.js
-│       │   └── directive3.js
-│       ├── filters
-│       │   └── filter3.js
-│       └── services
-│           └── service3.js
-├── partials
-├── lib
-└── test
+│   └── templates
+├── public
+│   ├── build
+│   │   ├── js
+│   │   └── css
+│   ├── assets
+│   │   ├── fonts
+│   │   └── images
+└── └── lib
+        ├── js
+        └── css
 ```
 
-* 当目录里有多个单词时, 使用 lisp-case 语法:
-
-```
-app
- ├── app.js
- └── my-complex-module
-     ├── controllers
-     ├── directives
-     ├── filters
-     └── services
-```
-
-* 在创建指令时，合适的做法是将相关的文件放到同一目录下 (如：模板文件, CSS/SASS 文件, JavaScript文件)。如果你在整个项目周期都选择这种组织方式，
-
-```
-app
-└── directives
-    ├── directive1
-    │   ├── directive1.html
-    │   ├── directive1.js
-    │   └── directive1.sass
-    └── directive2
-        ├── directive2.html
-        ├── directive2.js
-        └── directive2.sass
-```
-
-那么，上述的两种目录结构均能适用。
 * 组件的单元测试应与组件放置在同一目录下下。在这种方式下，当改变组件时，更加容易找到对应的测试。同时，单元测试也充当了文档和示例。
-
 ```
 services
 ├── cache
@@ -179,47 +69,10 @@ services
     ├── model1.js
     └── model1.spec.js
 ```
-
 * `app.js`文件包含路由定义、配置和启动说明(如果需要的话)。
 * 每一个 JavaScript 文件应该仅包含 **一个组件** 。文件名应该以组件名命名。
-* 使用 Angular 项目模板，如 [Yeoman](http://yeoman.io), [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).
 
-组件命名的约定可以在每个组件中看到。
-
-## 标记
-
-[太长慎读](http://developer.yahoo.com/blogs/ydn/high-performance-sites-rule-6-move-scripts-bottom-7200.html) 把script标签放在文档底部。
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>MyApp</title>
-</head>
-<body>
-  <div ng-app="myApp">
-    <div ng-view></div>
-  </div>
-  <script src="angular.js"></script>
-  <script src="app.js"></script>
-</body>
-</html>
-```
-
-保持标签的简洁并把AngularJS的标签放在标准HTML属性后面。这样提高了代码可读性。标准HTML属性和AngularJS的属性没有混到一起，提高了代码的可维护性。
-
-```html
-<form class="frm" ng-submit="login.authenticate()">
-  <div>
-    <input class="ipt" type="text" placeholder="name" require ng-model="user.name">
-  </div>
-</form>
-```
-
-其它的HTML标签应该遵循下面的指南的 [建议](http://mdo.github.io/code-guide/#html-attribute-order)
-
-## 标记
+## 命名约定
 
 下表展示了各个Angular元素的命名约定
 
@@ -232,8 +85,6 @@ Filters | lowerCamelCase | userFilter |
 Services | UpperCamelCase | User | constructor
 Services | lowerCamelCase | dataFactory | others
 
-
-
 ## 其他
 
 * 使用：
@@ -245,24 +96,9 @@ Services | lowerCamelCase | dataFactory | others
 
 这将使你更易于在测试时处理代码异常 (例如：你在 `setTimeout` 中忘记 `$scope.$apply`)
 
-使用如下工具自动化你的工作流
-    * [Yeoman](http://yeoman.io)
-    * [Gulp](http://gulpjs.com)
-    * [Grunt](http://gruntjs.com)
-    * [Bower](http://bower.io)
-
 * 使用 promise (`$q`) 而非回调。这将使你的代码更加优雅、直观，并且免于回调地狱。
 * 尽可能使用 `$resource` 而非 `$http`。更高的抽象可以避免冗余。
-* 使用AngularJS的预压缩版 (像 [ngmin](https://github.com/btford/ngmin) 或 [ng-annotate](https://github.com/olov/ng-annotate)) 避免在压缩之后出现问题。
 * 不要使用全局变量或函数。通过依赖注入解决所有依赖，这可以减少 bug ，规避很多测试时的麻烦。
-* 为避免使用全局变量或函数，可以借助 Grunt 或 Gulp 把你的代码放到一个立即执行的函数表达式（IIFE）中。可用的插件有 [grunt-wrap](https://www.npmjs.com/package/grunt-wrap) 或 [gulp-wrap](https://www.npmjs.com/package/gulp-wrap/)。下面是 Gulp 的示例：
-
-```Javascript
-gulp.src("./src/*.js")
-    .pipe(wrap('(function(){\n"use strict";\n<%= contents %>\n})();'))
-    .pipe(gulp.dest("./dist"));
-```
-
 * 不要污染 `$scope`。仅添加与视图相关的函数和变量。
 * [使用 controllers 而非 `ngInit`](https://github.com/angular/angular.js/pull/4366/files)。`ngInit` 只有在一种情况下的使用是合适的：用来给 `ngRepeat`的特殊属性赋予一个别名。除此之外, 你应该使用 controllers 而不是 `ngInit` 来初始化scope变量。`ngInit` 中的表达式会传递给 Angular 的 `$parse` 服务，通过词法分析，语法分析，求值等过程。这会导致:
     - 对性能的巨大影响，因为解释器由 Javascript 写成
@@ -283,13 +119,6 @@ module.factory('Service', function ($rootScope, $timeout, MyCustomDependency1, M
 # 模块
 
 * 模块应该用驼峰式命名。为表明模块 `b` 是模块 `a` 的子模块, 可以用点号连接: `a.b` 。
-
-	有两种常见的组织模块的方式：
-
-	0. 按照功能组织
-	0. 按照组件类型组织
-
-	当前并无太大差别，但前者更加清晰。同时，如果 lazy-loading modules 被实现的话 (当前并未列入 AngularJS 的路线图)，这种方式将改善应用的性能。
 
 # 控制器
 
